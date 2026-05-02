@@ -1,3 +1,26 @@
+-- PHÂN TÍCH NGHIỆP VỤ 
+-- hệ thống cần quản lý những đối tượng như : người dùng, sản phẩm, danh mục, đơn hàng, chi tiết đơn hàng 
+-- dữ liệu có thể thay đổi theo thời gian : thông tin khách hàng , thông tin sản phẩm , trạng thái tồn kho
+-- dữ liệu cần lưu lịch sử cố định : 
+-- Giá sản phẩm tại thời điểm mua (Snapshot Price): Giá thực tế mà khách hàng đã trả.
+-- Địa chỉ giao hàng tại thời điểm đặt (Snapshot Address): Địa chỉ cụ thể đơn hàng được gửi đến.
+-- Thời gian giao dịch: Ngày giờ tạo đơn, ngày thanh toán.
+-- Trạng thái đơn hàng: Nhật ký thay đổi từ khi đặt đến khi hoàn tất hoặc hủy.
+
+-- PHÂN LOẠI DỮ LIỆU : 
+-- dữ liệu thay đổi : dữ liệu phản ánh trạng thái hiện tại , khi có sự cập nhật , giá trị cũ sẽ bị ghi đè 
+-- dữ liệu cố định : là dữ liệu mang tính lịch sử , khi đã ghi nhận thì không thay đổi 
+
+-- PHÂN TÍCH VẤN ĐỀ HỆ THỐNG 
+-- Vì sao dữ liệu địa chỉ bị thay đổi trong đơn hàng cũ là sai 
+-- mất dấu nhận đơn : đơn hàng trong quá khứ đã được giao đến địa chỉ A, nhưng khách hàng chuyển nhà đến địa chỉ B , hệ thôngs cập nhật toàn bộ địa chỉ thành địa chỉ B , khi đó sẽ mất dấu vết 
+-- đơn hàng đã giao thành công 
+-- Vì sao giá sản phẩm không được dùng trực tiếp khi truy vấn lại đơn hàng 
+-- sự sai lệch doanh thu
+ -- khi bán vật phẩm này ở tháng 1 là giá 10 tr nhưng tháng 2 đã tăng giá lên 12 tr thì khi đó báo cáo tài chính sẽ bị độn ảo lên 2tr 
+ -- Vì sao cần kiểm tra tồn kho trước khi tạo đơn 
+ -- tránh việc đơn hàng bị treo , khi cho phép khách hàng đặt hàng khi tồn kho bằng 0 , đơn hàng sẽ bị treo và khách hàng sẽ ko nhận được hàng 
+
 CREATE DATABASE RikkeiSoft;
 USE RikkeiSoft;
 
